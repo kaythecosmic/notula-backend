@@ -10,4 +10,8 @@ public interface NotesServices {
     List<Note> getAllNotes();
 
     Note deleteNote(long noteID);
+
+    Note getNoteByID(long noteID);
+
+    Note updateNote(long noteID, Note note);
 }

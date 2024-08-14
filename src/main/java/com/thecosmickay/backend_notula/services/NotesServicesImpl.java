@@ -52,12 +52,41 @@ public class NotesServicesImpl implements NotesServices {
     @Override
     public Note deleteNote(long noteID) {
         Optional<NotesEntity> targetNote = notesRepository.findById(noteID);
-        Note responseNote = new Note();
         if (targetNote.isPresent()) {
+            Note responseNote = new Note();
             BeanUtils.copyProperties(targetNote.get(), responseNote);
             notesRepository.delete(targetNote.get());
             return responseNote;
         }
         return null;
+    }
+
+    @Override
+    public Note getNoteByID(long noteID) {
+        Optional<NotesEntity> targetNote = notesRepository.findById(noteID);
+        if (targetNote.isPresent()) {
+            Note responseFetchedNote = new Note();
+            BeanUtils.copyProperties(targetNote.get(), responseFetchedNote);
+            return responseFetchedNote;
+        }
+        return null;
+    }
+
+    @Override
+    public Note updateNote(long noteID, Note note) {
+        Optional<NotesEntity> targetNote = notesRepository.findById(noteID);
+        if (targetNote.isPresent()) {
+            Note responseNoteUpdated = new Note();
+            NotesEntity dockingTargetNote = targetNote.get();
+            dockingTargetNote.setTitle(note.getTitle());
+            dockingTargetNote.setContent(note.getTitle());
+            dockingTargetNote.setColor(note.getColor());
+            dockingTargetNote.setTags(note.getTags());
+            notesRepository.save(dockingTargetNote);
+            BeanUtils.copyProperties(dockingTargetNote, responseNoteUpdated);
+            return responseNoteUpdated;
+        }
+        return null;
+
     }
 }

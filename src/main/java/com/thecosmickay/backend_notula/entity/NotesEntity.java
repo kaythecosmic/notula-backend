@@ -49,4 +49,24 @@ public class NotesEntity {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 }

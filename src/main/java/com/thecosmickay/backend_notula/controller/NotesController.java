@@ -4,13 +4,10 @@ package com.thecosmickay.backend_notula.controller;
 import com.thecosmickay.backend_notula.model.Note;
 import com.thecosmickay.backend_notula.response.ApiResponse;
 import com.thecosmickay.backend_notula.services.NotesServices;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -34,18 +31,40 @@ public class NotesController {
 
     @DeleteMapping("/delNote/{noteID}")
     public ResponseEntity<ApiResponse<Note>> deleteNote(@PathVariable("noteID") long noteID) {
-
-        boolean isDeleted = false;
         Note deletedNote = notesServices.deleteNote(noteID);
-        ApiResponse<Note> response = new ApiResponse<Note>(false, "", null);
-        String message;
+        ApiResponse<Note> response = new ApiResponse<Note>(false, "Failed to delete Note.", null);
         if (deletedNote != null) {
             response.setMessage("Note deleted successfully");
             response.setData(deletedNote);
             response.setSuccess(true);
             return ResponseEntity.ok().body(response);
         }
-        response.setMessage("Failed to delete Note.");
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @GetMapping("/notes/{noteID}")
+    public ResponseEntity<ApiResponse<Note>> getNoteByID(@PathVariable("noteID") long noteID) {
+        Note fetchedNote = notesServices.getNoteByID(noteID);
+        ApiResponse<Note> response = new ApiResponse<Note>(false, "Desired Note Unavailable.", null);
+        if (fetchedNote != null) {
+            response.setMessage("Desired note found successfully.");
+            response.setData(fetchedNote);
+            response.setSuccess(true);
+            return ResponseEntity.ok().body(response);
+        }
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @PutMapping("/notes/{noteID}")
+    public ResponseEntity<ApiResponse<Note>> updateEmployee(@PathVariable("noteID") long noteID, @RequestBody Note note) {
+        Note updatedNote = notesServices.updateNote(noteID, note);
+        ApiResponse<Note> response = new ApiResponse<Note>(false, "Failed to update note.", null);
+        if (updatedNote != null) {
+            response.setSuccess(true);
+            response.setMessage("Updated Note successfully.");
+            response.setData(updatedNote);
+            return ResponseEntity.ok().body(response);
+        }
         return ResponseEntity.badRequest().body(response);
     }
 }
