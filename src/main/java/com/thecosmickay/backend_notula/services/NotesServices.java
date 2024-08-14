@@ -8,4 +8,6 @@ public interface NotesServices {
     Note createNote(Note note);
 
     List<Note> getAllNotes();
+
+    Note deleteNote(long noteID);
 }

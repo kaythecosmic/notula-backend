@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,5 +47,17 @@ public class NotesServicesImpl implements NotesServices {
                 ))
                 .collect(Collectors.toList());
         return notes;
+    }
+
+    @Override
+    public Note deleteNote(long noteID) {
+        Optional<NotesEntity> targetNote = notesRepository.findById(noteID);
+        Note responseNote = new Note();
+        if (targetNote.isPresent()) {
+            BeanUtils.copyProperties(targetNote.get(), responseNote);
+            notesRepository.delete(targetNote.get());
+            return responseNote;
+        }
+        return null;
     }
 }
