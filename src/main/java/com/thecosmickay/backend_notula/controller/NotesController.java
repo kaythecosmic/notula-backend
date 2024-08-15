@@ -1,6 +1,5 @@
 package com.thecosmickay.backend_notula.controller;
 
-
 import com.thecosmickay.backend_notula.model.Note;
 import com.thecosmickay.backend_notula.response.ApiResponse;
 import com.thecosmickay.backend_notula.services.NotesServices;

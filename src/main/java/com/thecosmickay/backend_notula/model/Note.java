@@ -1,8 +1,7 @@
 package com.thecosmickay.backend_notula.model;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,27 +12,25 @@ public class Note {
     private String content;
     private LocalDateTime date;
     private Color color;
+    private NotePosition position;
     private List<String> tags;
 
-    public Note(long id, String title, String content, LocalDateTime date, Color color, List<String> tags) {
+    public Note(long id, String title, String content, LocalDateTime date, Color color, NotePosition position, List<String> tags) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.date = date;
         this.color = color;
+        this.position = position;
         this.tags = tags;
     }
 
     public Note() {
-
     }
+
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -74,5 +71,17 @@ public class Note {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public NotePosition positionObject() {
+        return position;
+    }
+
+    public void setPosition(int x, int y) {
+        this.position = new NotePosition(x, y);
+    }
+
+    public void setPosition(NotePosition position) {
+        this.position = position;
     }
 }

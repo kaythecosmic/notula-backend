@@ -26,6 +26,7 @@ public class NotesServicesImpl implements NotesServices {
         BeanUtils.copyProperties(note, notesEntity);
         notesEntity.setDate(LocalDateTime.now());
         notesRepository.save(notesEntity);
+        BeanUtils.copyProperties(notesEntity, note);
         return note;
     }
 
@@ -43,6 +44,7 @@ public class NotesServicesImpl implements NotesServices {
                         note.getContent(),
                         note.getDate(),
                         note.getColor(),
+                        note.getPosition(),
                         note.getTags()
                 ))
                 .collect(Collectors.toList());
@@ -81,6 +83,7 @@ public class NotesServicesImpl implements NotesServices {
             dockingTargetNote.setTitle(note.getTitle());
             dockingTargetNote.setContent(note.getContent());
             dockingTargetNote.setColor(note.getColor());
+            dockingTargetNote.setPosition(note.positionObject());
             dockingTargetNote.setTags(note.getTags());
             notesRepository.save(dockingTargetNote);
             BeanUtils.copyProperties(dockingTargetNote, responseNoteUpdated);

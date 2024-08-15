@@ -2,6 +2,7 @@ package com.thecosmickay.backend_notula.entity;
 
 
 import com.thecosmickay.backend_notula.model.Color;
+import com.thecosmickay.backend_notula.model.NotePosition;
 import lombok.Data;
 import jakarta.persistence.*;
 
@@ -20,6 +21,8 @@ public class NotesEntity {
     private String content;
     private LocalDateTime date;
     private Color color;
+    @Embedded
+    private NotePosition position;
     private List<String> tags;
 
     public long getId() {
@@ -68,5 +71,18 @@ public class NotesEntity {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public NotePosition getPosition() {
+        return position;
+    }
+
+    public void setPosition(int x, int y) {
+        this.position.setX(x);
+        this.position.setY(y);
+    }
+
+    public void setPosition(NotePosition position) {
+        this.position = position;
     }
 }
