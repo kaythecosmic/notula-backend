@@ -79,7 +79,7 @@ public class NotesServicesImpl implements NotesServices {
             Note responseNoteUpdated = new Note();
             NotesEntity dockingTargetNote = targetNote.get();
             dockingTargetNote.setTitle(note.getTitle());
-            dockingTargetNote.setContent(note.getTitle());
+            dockingTargetNote.setContent(note.getContent());
             dockingTargetNote.setColor(note.getColor());
             dockingTargetNote.setTags(note.getTags());
             notesRepository.save(dockingTargetNote);
